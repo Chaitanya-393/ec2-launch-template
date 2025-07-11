@@ -1,0 +1,19 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Create an EC2 Launch Template
+
+Resources:
+  MyLaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateName: my-ec2-launch-template
+      LaunchTemplateData:
+        InstanceType: t2.micro
+        ImageId: ami-0c02fb55956c7d316  # Amazon Linux 2 AMI (replace if needed)
+        KeyName: your-key-name-here     # Replace with your existing key pair name
+        SecurityGroupIds:
+          - sg-xxxxxxxx                 # Replace with your security group ID
+        TagSpecifications:
+          - ResourceType: instance
+            Tags:
+              - Key: Name
+                Value: MyEC2Instance
