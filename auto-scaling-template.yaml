@@ -5,7 +5,7 @@ Resources:
   MyLaunchTemplate:
     Type: AWS::EC2::LaunchTemplate
     Properties:
-      LaunchTemplateName: my-ec2-launch-template
+      LaunchTemplateName: my-ec2-launch-template-v2
       LaunchTemplateData:
         InstanceType: t2.micro
         ImageId: ami-0c02fb55956c7d316   
