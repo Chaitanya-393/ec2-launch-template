@@ -1,0 +1,41 @@
+
+
+MyLoadBalancer:
+  Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  Properties:
+    Name: my-alb
+    Subnets:
+      -subnet-0f4a69a4bb995ccd9     
+      -subnet-0dc37fdf729ea52a1
+    SecurityGroups:
+      -sg-0e1ce476348c5e511
+    Scheme: internet-facing
+    Type: application
+    IpAddressType: ipv4
+    LoadBalancerAttributes:
+      - Key: deletion_protection.enabled
+        Value: false
+
+MyTargetGroup:
+  Type: AWS::ElasticLoadBalancingV2::TargetGroup
+  Properties:
+    Name: my-target-group
+    VpcId: vpc-08876a6d42fb72476   
+    Protocol: HTTP
+    Port: 80
+    TargetType: instance
+    HealthCheckProtocol: HTTP
+    HealthCheckPort: traffic-port
+    HealthCheckPath: /
+    Matcher:
+      HttpCode: 200
+
+MyALBListener:
+  Type: AWS::ElasticLoadBalancingV2::Listener
+  Properties:
+    LoadBalancerArn: !Ref MyLoadBalancer
+    Port: 80
+    Protocol: HTTP
+    DefaultActions:
+      - Type: forward
+        TargetGroupArn: !Ref MyTargetGroup
