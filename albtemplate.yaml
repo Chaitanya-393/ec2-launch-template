@@ -2,6 +2,9 @@
 
 MyLoadBalancer:
   Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+  Resources:
+  MyLoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
   Properties:
     Name: my-alb
     Subnets:
