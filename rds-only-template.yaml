@@ -22,10 +22,11 @@ Resources:
       MasterUsername: admin
       MasterUserPassword: MySecurePass123!
       DBName: chaitanyadb
-      VPCSecurityGroups:
+           VPCSecurityGroups:
         - sg-0e1ce476348c5e511
       DBSubnetGroupName: !Ref MyDBSubnetGroup
       PubliclyAccessible: false
       MultiAZ: false
       BackupRetentionPeriod: 0
-     DeletionProtection: false
+      DeletionProtection: false
+
