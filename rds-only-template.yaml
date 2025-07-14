@@ -28,4 +28,4 @@ Resources:
       PubliclyAccessible: false
       MultiAZ: false
       BackupRetentionPeriod: 0
-      DeletionProtecti
+     DeletionProtection: false
