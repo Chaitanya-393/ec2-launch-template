@@ -72,8 +72,8 @@ Resources:
     Properties:
       DBSubnetGroupDescription: "Subnet group for RDS"
       SubnetIds:
-        - 	subnet-0f4a69a4bb995ccd9a            
-        - 	subnet-0dc37fdf729ea52a1          
+        - subnet-0f4a69a4bb995ccd9a            
+        - subnet-0dc37fdf729ea52a1          
 
   MyDBInstance:
     Type: AWS::RDS::DBInstance
