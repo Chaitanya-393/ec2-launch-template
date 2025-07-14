@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Create an RDS MySQL database in private subnets
+
+Resources:
+
+  MyDBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: Subnet group for RDS DB
+      SubnetIds:
+        - subnet-0825199d8563f7531     
+        - subnet-0450efa1269ab4429   
+      DBSubnetGroupName: chaitanya-db-subnet-group
+
+  MyDBInstance:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBInstanceIdentifier: chaitanya-db
+      DBInstanceClass: db.t3.micro
+      Engine: mysql
+      AllocatedStorage: 20
+      MasterUsername: admin
+      MasterUserPassword: MySecurePass123!
+      DBName: chaitanyadb
+      VPCSecurityGroups:
+        - sg-0e1ce476348c5e511
+      DBSubnetGroupName: !Ref MyDBSubnetGroup
+      PubliclyAccessible: false
+      MultiAZ: false
+      BackupRetentionPeriod: 0
+      DeletionProtecti
