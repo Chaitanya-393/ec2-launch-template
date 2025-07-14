@@ -75,7 +75,7 @@ Resources:
         - subnet-0f4a69a4bb995ccd9           
         - subnet-0dc37fdf729ea52a1          
 
-  MyDBInstance:
+    MyDBInstance:
     Type: AWS::RDS::DBInstance
     Properties:
       DBInstanceIdentifier: mydb-instance
@@ -86,7 +86,8 @@ Resources:
       MasterUserPassword: SecurePassword123!
       DBSubnetGroupName: !Ref MyDBSubnetGroup
       VPCSecurityGroups:
-        - 	sg-0e1ce476348c5e511            
+        - sg-0e1ce476348c5e511
       PubliclyAccessible: false
       DeletionProtection: false
+
 
