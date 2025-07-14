@@ -1,0 +1,71 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: EC2 Auto Scaling with Load Balancer and Target Group
+
+Resources:
+
+  MyLaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateName: my-launch-template-july11
+      LaunchTemplateData:
+        InstanceType: t2.micro
+        ImageId: ami-0c02fb55956c7d316  # Amazon Linux 2
+        KeyName: my-key-pair            # Change if yours is different
+        SecurityGroupIds:
+          - sg-0e1ce476348c5e511
+        TagSpecifications:
+          - ResourceType: instance
+            Tags:
+              - Key: Name
+                Value: AutoScaledInstance
+
+  MyTargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: my-target-group
+      Port: 80
+      Protocol: HTTP
+      VpcId: vpc-08876a6d42fb72476
+      TargetType: instance
+      HealthCheckPath: /
+
+  MyLoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Name: my-load-balancer
+      Scheme: internet-facing
+      Subnets:
+        - subnet-0f4a69a4bb995ccd9
+        - subnet-0dc37fdf729ea52a1
+      SecurityGroups:
+        - sg-0e1ce476348c5e511
+
+  MyListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      LoadBalancerArn: !Ref MyLoadBalancer
+      Port: 80
+      Protocol: HTTP
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref MyTargetGroup
+
+  MyAutoScalingGroup:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      AutoScalingGroupName: my-auto-scaling-group
+      MinSize: '1'
+      MaxSize: '3'
+      DesiredCapacity: '1'
+      VPCZoneIdentifier:
+        - subnet-0f4a69a4bb995ccd9
+        - subnet-0dc37fdf729ea52a1
+      LaunchTemplate:
+        LaunchTemplateId: !Ref MyLaunchTemplate
+        Version: !GetAtt MyLaunchTemplate.LatestVersionNumber
+      TargetGroupARNs:
+        - !Ref MyTargetGroup
+      Tags:
+        - Key: Name
+          Value: ASGInstance
+          PropagateAtLaunch: true
