@@ -6,11 +6,11 @@ Resources:
   MyLaunchTemplate:
     Type: AWS::EC2::LaunchTemplate
     Properties:
-      LaunchTemplateName: chaitanya-launch-template-01
+      LaunchTemplateName: chaitanya-launch-template-02
       LaunchTemplateData:
         InstanceType: t2.micro
         ImageId: ami-0c02fb55956c7d316  # Amazon Linux 2
-        KeyName: my-key-pair            # Change if yours is different
+        KeyName: my-key-pair            # Change if different
         SecurityGroupIds:
           - sg-0e1ce476348c5e511
         TagSpecifications:
@@ -22,7 +22,7 @@ Resources:
   MyTargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
-      Name: my-target-group
+      Name: chaitanya-target-group
       Port: 80
       Protocol: HTTP
       VpcId: vpc-08876a6d42fb72476
@@ -32,7 +32,7 @@ Resources:
   MyLoadBalancer:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
-      Name: my-load-balancer
+      Name: chaitanya-load-balancer
       Scheme: internet-facing
       Subnets:
         - subnet-0f4a69a4bb995ccd9
@@ -53,7 +53,7 @@ Resources:
   MyAutoScalingGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
     Properties:
-      AutoScalingGroupName: my-auto-scaling-group
+      AutoScalingGroupName: chaitanya-auto-scaling-group
       MinSize: '1'
       MaxSize: '3'
       DesiredCapacity: '1'
